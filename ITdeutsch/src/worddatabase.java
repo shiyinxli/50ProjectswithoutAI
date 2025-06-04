@@ -16,7 +16,7 @@ public class worddatabase {
             new newWords("keyboard", "die Tastatur")
     ));
 
-    protected ArrayList<word> practicewordsArrayList = new ArrayList<>();
+    protected ArrayList<practiceWords> practicewordsArrayList = new ArrayList<>();
     protected ArrayList<word> masteredwordsArrayList = new ArrayList<>();
 
     protected Scanner input = new Scanner(System.in);
@@ -24,14 +24,15 @@ public class worddatabase {
     public void run(){
         while (true){
             System.out.println("----------------------------------------------------------------");
-            System.out.println("1. learn new words. 2. review words. 3.see mastered words. 4.exit.");
+            System.out.println("1. learn new words. 2. review words. 3. show current learning words. 4.see mastered words. 5.exit.");
             System.out.println("choose: ");
             int choice = Integer.parseInt(input.nextLine());
             switch (choice){
                 case 1 -> learn();
                 case 2 -> review();
-                case 3 -> showmastered();
-                case 4 -> {
+                case 3 -> showcurrentlearningwords();
+                case 4 -> showmastered();
+                case 5 -> {
                     System.out.println("Bye!💕💕");
                     return;
                 }
@@ -46,7 +47,7 @@ public class worddatabase {
         while (n>0){
 //                System.out.println("English: "+newwordsArrayList.getFirst().getEnglish()+" Deutsch: "+newwordsArrayList.getFirst().getDeutsch());
                 System.out.println(newwordsArrayList.getFirst());
-                practicewordsArrayList.add(new practiceWords(newwordsArrayList.getFirst().getEnglish(),newwordsArrayList.getFirst().getDeutsch()));
+                practicewordsArrayList.add(new practiceWords(newwordsArrayList.getFirst().getEnglish(),newwordsArrayList.getFirst().getDeutsch(),0));
                 System.out.println("Please choose: 1.next.  2. exit");
                 int choice = Integer.parseInt(input.nextLine());
                 switch (choice){
@@ -74,9 +75,15 @@ public class worddatabase {
             String answer = input.nextLine();
             if(answer.equals(practicewordsArrayList.getFirst().getDeutsch())){
                 System.out.println("correct!");
-                masteredwordsArrayList.add(new masteredWords(practicewordsArrayList.getFirst().getEnglish(),practicewordsArrayList.getFirst().getDeutsch()));
+                practiceWords w = (practiceWords) practicewordsArrayList.getFirst();
+                w.increaseCorrectTimes(1);
+                if(w.getCorrectTimes()>3){
+                    practicewordsArrayList.remove(0);
+                    masteredwordsArrayList.add(new masteredWords(w.getEnglish(), w.getDeutsch()));
+                    n--;
+                }
+                practicewordsArrayList.add(w);
                 practicewordsArrayList.remove(0);
-                n--;
             }
             else{
                 System.out.println("wrong!");
@@ -86,6 +93,17 @@ public class worddatabase {
             }
         }
 
+    }
+
+    private void showcurrentlearningwords(){
+        System.out.println("1.sort by proficiency. 2.sort by length");
+        int choice = Integer.parseInt(input.nextLine());
+        switch (choice){
+            case 1 -> {
+                practicewordsArrayList.sort((w1,w2)->Integer.compare(w1.getCorrectTimes(), w2.getCorrectTimes()));
+                
+            }
+        }
     }
 
     private void showmastered(){

@@ -20,8 +20,12 @@ public abstract class word {
         return deutsch;
     }
 
+
     @Override
     public String toString(){
         return this.english+"<-------->"+this.deutsch;
     }
+
+
+
 }
