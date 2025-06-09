@@ -1,13 +1,5 @@
-# try to complete 50 projects without AI
-### project 1: to-do-list (javafx)
-<img src="/todolist/screenshot.png" height=300px/>
-
-### project 2: ITDeutsch (console-based)
-
-<details>
-<summary> click to expand code </summary>
-  
-``` text
+# ITdeutsch -- a console-based application helps you learn IT German
+```bash
 ----------------------------------------------------------------
 1. learn new words. 2. review words. 3. show current learning words. 4.see mastered words. 5.exit.
 choose: 
@@ -110,4 +102,3 @@ Bye!💕💕
 Process finished with exit code 0
 
 ```
-</details>

@@ -22,7 +22,7 @@ public class practiceWords extends word{
     public String toString(){
         int i;
         String stars = "";
-        for( i=0; i<=correctTimes; i++){
+        for( i=0; i<correctTimes; i++){
             stars=stars+"*";
         }
         return this.english+"<-------->"+this.deutsch+" "+stars;
